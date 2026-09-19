@@ -142,7 +142,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                         <ArrowUpRight className={`w-4 h-4 ${language === 'ar' ? 'rotate-[-90deg]' : ''}`} />
                       </button>
                       <span className="text-xs text-[#71717a] font-medium">
-                        {language === 'ar' ? 'القطاع:' : 'Sector:'} <span className="text-slate-800 font-semibold">{featured.clientType}</span>
+                        {language === 'ar' ? 'القطاع:' : 'Sector:'}{' '}
+                        <span className="text-slate-800 font-semibold">
+                          {language === 'ar' ? (featured.clientType_ar || featured.clientType) : (featured.clientType_en || featured.clientType)}
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -157,7 +160,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                       <span className="absolute bottom-4 start-4 px-2.5 py-1 rounded bg-white text-xs font-mono font-bold text-[#6a5ed9] shadow-xs">
-                        {featured.category}
+                        {language === 'ar' ? (featured.category_ar || featured.category) : (featured.category_en || featured.category)}
                       </span>
                     </div>
                     <div className="p-6 bg-white space-y-4 text-start">
@@ -182,7 +185,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                           {t.projects.deliverablesTitle}
                         </div>
                         <div className="space-y-1.5">
-                          {(featured.deliverables || []).map((item, idx) => (
+                          {((language === 'ar' ? (featured.deliverables_ar || featured.deliverables) : (featured.deliverables_en || featured.deliverables)) || []).map((item, idx) => (
                             <div key={idx} className="text-xs text-slate-600 flex items-center gap-2 font-medium">
                               <span className="w-1.5 h-1.5 rounded-full bg-[#6a5ed9]" />
                               <span>{item}</span>
@@ -223,12 +226,12 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                       
                       {/* Floating Category Badge */}
                       <span className="absolute top-4 start-4 px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur-xs text-[10px] font-mono font-bold text-[#6a5ed9] shadow-xs uppercase tracking-wider">
-                        {project.category}
+                        {language === 'ar' ? (project.category_ar || project.category) : (project.category_en || project.category)}
                       </span>
                       
                       {/* Client Type badge */}
                       <span className="absolute top-4 end-4 px-2 py-0.5 rounded-md bg-zinc-900/70 backdrop-blur-xs text-[10px] font-medium text-white shadow-xs">
-                        {project.clientType}
+                        {language === 'ar' ? (project.clientType_ar || project.clientType) : (project.clientType_en || project.clientType)}
                       </span>
                     </div>
 
@@ -244,17 +247,20 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                       </div>
 
                       {/* Highlights - Key Outcome */}
-                      {project.results && project.results[0] && (
-                        <div className="p-3.5 rounded-xl bg-[#6a5ed9]/5 border border-[#6a5ed9]/10 space-y-1 shadow-2xs">
-                          <div className="text-[10px] uppercase font-mono font-bold text-[#6a5ed9] tracking-wider flex items-center gap-1">
-                            <Award className="w-3.5 h-3.5" />
-                            <span>{language === 'ar' ? 'النتيجة الرئيسية' : 'Key Outcome'}</span>
+                      {(() => {
+                        const outcomeList = language === 'ar' ? (project.results_ar || project.results) : (project.results_en || project.results);
+                        return outcomeList && outcomeList[0] ? (
+                          <div className="p-3.5 rounded-xl bg-[#6a5ed9]/5 border border-[#6a5ed9]/10 space-y-1 shadow-2xs">
+                            <div className="text-[10px] uppercase font-mono font-bold text-[#6a5ed9] tracking-wider flex items-center gap-1">
+                              <Award className="w-3.5 h-3.5" />
+                              <span>{language === 'ar' ? 'النتيجة الرئيسية' : 'Key Outcome'}</span>
+                            </div>
+                            <div className="text-xs text-[#27272a] font-semibold leading-relaxed">
+                              {outcomeList[0]}
+                            </div>
                           </div>
-                          <div className="text-xs text-[#27272a] font-semibold leading-relaxed">
-                            {project.results[0]}
-                          </div>
-                        </div>
-                      )}
+                        ) : null;
+                      })()}
 
                       {/* Tech stack pills */}
                       <div className="flex flex-wrap gap-1.5 pt-1">
@@ -280,7 +286,9 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                       <span>{t.projects.viewDetails}</span>
                       <ArrowUpRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${language === 'ar' ? 'rotate-[-90deg]' : ''}`} />
                     </button>
-                    <span className="text-[9px] font-mono font-medium text-slate-400">Delivered by DevRopix</span>
+                    <span className="text-[9px] font-mono font-medium text-slate-400">
+                      {language === 'ar' ? 'تم التنفيذ بواسطة DevRopix' : 'Delivered by DevRopix'}
+                    </span>
                   </div>
                 </div>
               ))}

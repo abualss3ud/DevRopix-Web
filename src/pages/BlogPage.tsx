@@ -50,7 +50,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({
       const matchesSearch =
         titleText.toLowerCase().includes(searchQuery.toLowerCase()) ||
         excerptText.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        (post.tags || []).some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchesCat && matchesSearch;
     });
   }, [searchQuery, selectedCategory, language]);
@@ -158,7 +158,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({
                   </span>
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
-                    {language === 'ar' ? activePost.date.replace('Sep', 'سبتمبر').replace('Aug', 'أغسطس').replace('Jul', 'يوليو') : activePost.date}
+                    {language === 'ar' ? (activePost.date || '').replace('Sep', 'سبتمبر').replace('Aug', 'أغسطس').replace('Jul', 'يوليو') : (activePost.date || '')}
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" />
@@ -177,10 +177,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({
                   </div>
                   <div>
                     <div className="text-xs font-bold text-[#27272a]">
-                      {language === 'ar' ? (activePost.author.name === 'Sultan Al-Rashid' ? 'سلطان الرشيد' : activePost.author.name === 'DevRopix Architecture Group' ? 'مجموعة معمارية البرمجيات في ديف روبيكس' : activePost.author.name === 'DevRopix Product Studio' ? 'ستوديو المنتجات في ديف روبيكس' : activePost.author.name) : activePost.author.name}
+                      {language === 'ar' ? (activePost.author?.name === 'Sultan Al-Rashid' ? 'سلطان الرشيد' : activePost.author?.name === 'DevRopix Architecture Group' ? 'مجموعة معمارية البرمجيات في ديف روبيكس' : activePost.author?.name === 'DevRopix Product Studio' ? 'ستوديو المنتجات في ديف روبيكس' : (activePost.author?.name || 'فريق ديف روبيكس')) : (activePost.author?.name || 'DevRopix Team')}
                     </div>
                     <div className="text-[11px] text-[#71717a]">
-                      {language === 'ar' ? (activePost.author.role_ar || activePost.author.role) : (activePost.author.role_en || activePost.author.role)}
+                      {language === 'ar' ? (activePost.author?.role_ar || activePost.author?.role) : (activePost.author?.role_en || activePost.author?.role)}
                     </div>
                   </div>
                 </div>
@@ -188,7 +188,12 @@ export const BlogPage: React.FC<BlogPageProps> = ({
 
               {/* Article Content */}
               <div className="space-y-6 text-sm sm:text-base text-[#71717a] leading-relaxed">
-                {(language === 'ar' ? (activePost.content_ar || activePost.content || []) : (activePost.content_en || activePost.content || [])).map((paragraph, idx) => (
+                {(Array.isArray(language === 'ar' ? (activePost.content_ar || activePost.content) : (activePost.content_en || activePost.content))
+                  ? (language === 'ar' ? (activePost.content_ar || activePost.content) : (activePost.content_en || activePost.content)) as string[]
+                  : typeof (language === 'ar' ? (activePost.content_ar || activePost.content) : (activePost.content_en || activePost.content)) === 'string'
+                  ? ((language === 'ar' ? (activePost.content_ar || activePost.content) : (activePost.content_en || activePost.content)) as string).split('\n\n')
+                  : []
+                ).map((paragraph: string, idx: number) => (
                   <p key={idx} className="leading-relaxed">
                     {paragraph}
                   </p>
@@ -202,7 +207,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({
                   <span>{language === 'ar' ? 'الكلمات المفتاحية' : 'Topics & Tags'}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {activePost.tags.map((tag) => (
+                  {(activePost.tags || []).map((tag) => (
                     <span
                       key={tag}
                       className="px-3 py-1 rounded-md bg-[#fafafa] border border-[#e4e4e7] text-xs font-mono text-[#71717a]"
@@ -280,10 +285,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({
 
                         <div className="flex items-center gap-2 text-xs text-[#71717a] pt-2">
                           <span className="font-medium text-[#27272a]">
-                            {language === 'ar' ? (post.author.name === 'Sultan Al-Rashid' ? 'سلطان الرشيد' : post.author.name === 'DevRopix Architecture Group' ? 'مجموعة معمارية البرمجيات في ديف روبيكس' : post.author.name === 'DevRopix Product Studio' ? 'ستوديو المنتجات في ديف روبيكس' : post.author.name) : post.author.name}
+                            {language === 'ar' ? (post.author?.name === 'Sultan Al-Rashid' ? 'سلطان الرشيد' : post.author?.name === 'DevRopix Architecture Group' ? 'مجموعة معمارية البرمجيات في ديف روبيكس' : post.author?.name === 'DevRopix Product Studio' ? 'ستوديو المنتجات في ديف روبيكس' : (post.author?.name || 'فريق ديف روبيكس')) : (post.author?.name || 'DevRopix Team')}
                           </span>
                           <span>•</span>
-                          <span>{language === 'ar' ? post.date.replace('Sep', 'سبتمبر').replace('Aug', 'أغسطس').replace('Jul', 'يوليو') : post.date}</span>
+                          <span>{language === 'ar' ? (post.date || '').replace('Sep', 'سبتمبر').replace('Aug', 'أغسطس').replace('Jul', 'يوليو') : (post.date || '')}</span>
                         </div>
                       </div>
 

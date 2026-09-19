@@ -1,4 +1,5 @@
 import { AdminUser } from '../types';
+export type { AdminUser };
 import { safeLocalStorage, safeSessionStorage } from '../utils/safeStorage';
 
 const AUTH_STORAGE_KEY = 'devropix_admin_auth';

@@ -34,9 +34,14 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
   const activeService =
     servicesData.find((s) => s.id === activeServiceId) || servicesData[0];
 
-  const activeServiceText = t.services[
+  const activeServiceText = (t.services[
     activeService.titleKey as keyof typeof t.services
-  ] as {
+  ] || {
+    title: activeService.id,
+    desc: '',
+    fullDesc: '',
+    metric: activeService.metrics || '',
+  }) as {
     title: string;
     desc: string;
     fullDesc?: string;
@@ -130,52 +135,52 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
       case 'web-development':
         return (
           <div className="space-y-4">
-            {/* Browser Header */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-[#27272a] rounded-t-xl border-b border-[#3f3f46]">
+            {/* Browser Header (Clean Light Theme) */}
+            <div className="flex items-center justify-between px-4 py-3 bg-[#f4f4f5] rounded-t-2xl border border-b-0 border-[#e4e4e7]">
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#db5434]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ffb929]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#1bb152]" />
+                <span className="w-3 h-3 rounded-full bg-[#db5434]/80" />
+                <span className="w-3 h-3 rounded-full bg-[#ffb929]/80" />
+                <span className="w-3 h-3 rounded-full bg-[#1bb152]/80" />
               </div>
-              <div className="px-3 py-0.5 rounded-md bg-[#18181b] border border-[#3f3f46] text-[11px] font-mono text-[#a1a1aa] flex items-center gap-1.5">
-                <span className="text-[#1bb152]">https://</span>
-                <span>platform.devropix.cloud</span>
+              <div className="px-3.5 py-1 rounded-lg bg-white border border-[#e4e4e7] text-[11px] font-mono text-[#52525b] flex items-center gap-1.5 shadow-2xs">
+                <span className="text-[#1bb152] font-semibold">https://</span>
+                <span className="text-[#27272a]">platform.devropix.cloud</span>
               </div>
-              <div className="text-[10px] font-mono text-[#4ade80] flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse" />
+              <div className="px-2.5 py-0.5 rounded-full bg-[#1bb152]/10 border border-[#1bb152]/20 text-[10px] font-mono font-semibold text-[#1bb152] flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1bb152] animate-pulse" />
                 <span>200 OK</span>
               </div>
             </div>
 
             {/* Metrics Dashboard Simulation */}
-            <div className="p-5 bg-white rounded-b-xl border border-t-0 border-[#e4e4e7] space-y-4">
+            <div className="p-5 sm:p-6 bg-white rounded-b-2xl border border-[#e4e4e7] space-y-4 shadow-2xs">
               <div className="grid grid-cols-3 gap-3">
-                <div className="p-3 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-start">
+                <div className="p-3.5 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-start">
                   <span className="text-[10px] font-mono text-[#71717a] block">Core Web Vitals</span>
-                  <span className="text-xl font-bold font-mono text-[#1bb152]">99/100</span>
-                  <span className="text-[10px] text-[#1bb152] block mt-0.5">Lighthouse Score</span>
+                  <span className="text-xl font-bold font-mono text-[#1bb152] mt-0.5 block">99/100</span>
+                  <span className="text-[10px] text-[#1bb152] font-medium block mt-0.5">Lighthouse Score</span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-start">
+                <div className="p-3.5 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-start">
                   <span className="text-[10px] font-mono text-[#71717a] block">TTFB Latency</span>
-                  <span className="text-xl font-bold font-mono text-[#3f71d4]">&lt; 38ms</span>
-                  <span className="text-[10px] text-[#71717a] block mt-0.5">Edge CDN Cached</span>
+                  <span className="text-xl font-bold font-mono text-[#3f71d4] mt-0.5 block">&lt; 38ms</span>
+                  <span className="text-[10px] text-[#71717a] font-medium block mt-0.5">Edge CDN Cached</span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-start">
+                <div className="p-3.5 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-start">
                   <span className="text-[10px] font-mono text-[#71717a] block">Architecture</span>
-                  <span className="text-sm font-bold font-mono text-[#27272a] mt-1 block">SSR + SPA</span>
-                  <span className="text-[10px] text-[#6a5ed9] block mt-0.5">Next.js &amp; Tailwind</span>
+                  <span className="text-sm font-bold font-mono text-[#27272a] mt-1.5 block">SSR + SPA</span>
+                  <span className="text-[10px] text-[#6a5ed9] font-medium block mt-0.5">Next.js &amp; Tailwind</span>
                 </div>
               </div>
 
-              {/* Code Snippet preview */}
-              <div className="p-3.5 rounded-xl bg-[#18181b] font-mono text-xs text-[#e4e4e7] space-y-1.5 overflow-x-auto text-start">
-                <div className="text-[#a1a1aa] text-[11px]">// High-throughput optimized edge route</div>
+              {/* Code Snippet preview (Clean Light Code Panel) */}
+              <div className="p-4 rounded-xl bg-[#fafafa] border border-[#e4e4e7] font-mono text-xs text-[#27272a] space-y-1.5 overflow-x-auto text-start shadow-2xs">
+                <div className="text-[#71717a] text-[11px]">// High-throughput optimized edge route</div>
                 <div>
-                  <span className="text-[#6a5ed9]">export async function</span>{' '}
-                  <span className="text-[#60a5fa]">GET</span>(request: <span className="text-[#34d399]">NextRequest</span>) &#123;
+                  <span className="text-[#6a5ed9] font-semibold">export async function</span>{' '}
+                  <span className="text-[#3f71d4] font-semibold">GET</span>(request: <span className="text-[#0d9488]">NextRequest</span>) &#123;
                 </div>
-                <div className="ps-4 text-[#a1a1aa]">
-                  return <span className="text-[#f59e0b]">Response</span>.json(&#123; status: <span className="text-[#34d399]">'healthy'</span>, latency: <span className="text-[#34d399]">'18ms'</span> &#125;);
+                <div className="ps-4 text-[#52525b]">
+                  return <span className="text-[#d97706] font-semibold">Response</span>.json(&#123; status: <span className="text-[#16a34a]">'healthy'</span>, latency: <span className="text-[#16a34a]">'18ms'</span> &#125;);
                 </div>
                 <div>&#125;</div>
               </div>
@@ -465,9 +470,13 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
           <div className="lg:col-span-5 flex flex-col gap-2.5">
             {servicesData.map((service, idx) => {
               const isSelected = service.id === activeServiceId;
-              const serviceInfo = t.services[
+              const serviceInfo = (t.services[
                 service.titleKey as keyof typeof t.services
-              ] as {
+              ] || {
+                title: service.id,
+                desc: '',
+                metric: service.metrics || '',
+              }) as {
                 title: string;
                 desc: string;
                 metric: string;
@@ -493,7 +502,7 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
                           : 'bg-[#f4f4f5] text-[#71717a] group-hover:text-[#27272a]'
                       }`}
                     >
-                      {getServiceIcon(service.iconName, 'w-5 h-5')}
+                      {getServiceIcon(service.iconName || 'Globe', 'w-5 h-5')}
                     </div>
 
                     <div className="min-w-0">
@@ -577,7 +586,7 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
                   <span>{t.services.deliverablesTitle}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {activeService.deliverables.map((item, idx) => (
+                  {(activeService.deliverables || []).map((item, idx) => (
                     <div
                       key={idx}
                       className="flex items-start gap-2 p-2.5 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-xs text-[#52525b]"
@@ -595,7 +604,7 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
                   {t.services.technologiesTitle}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {activeService.techStack.map((tech) => (
+                  {(activeService.techStack || []).map((tech) => (
                     <span
                       key={tech}
                       className="px-3 py-1 rounded-lg bg-[#f4f4f5] border border-[#e4e4e7] text-xs font-mono text-[#27272a] font-medium"
@@ -632,23 +641,23 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
           </div>
         </div>
 
-        {/* Signature Engineering Consultation Strip */}
-        <div className="mt-14 sm:mt-16 rounded-3xl bg-[#18181b] border border-[#27272a] p-8 sm:p-10 text-white relative overflow-hidden shadow-xl">
-          <div className="absolute right-0 top-0 w-80 h-80 bg-[#6a5ed9]/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute left-10 bottom-0 w-64 h-64 bg-[#3f71d4]/15 rounded-full blur-3xl pointer-events-none" />
+        {/* Signature Engineering Consultation Strip (Crisp Light Theme) */}
+        <div className="mt-14 sm:mt-16 rounded-3xl bg-white border border-[#e4e4e7] p-8 sm:p-10 text-[#27272a] relative overflow-hidden shadow-sm">
+          <div className="absolute right-0 top-0 w-80 h-80 bg-[#6a5ed9]/08 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute left-10 bottom-0 w-64 h-64 bg-[#3f71d4]/08 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-start">
             <div className="space-y-2.5 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#27272a] border border-[#3f3f46] font-eyebrow text-[#4ade80]">
-                <Zap className="w-3.5 h-3.5 text-[#4ade80]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#6a5ed9]/10 border border-[#6a5ed9]/20 font-eyebrow text-[#6a5ed9]">
+                <Zap className="w-3.5 h-3.5 text-[#6a5ed9]" />
                 <span>{language === 'ar' ? 'استشارة معمارية مخصصة' : 'CUSTOM ENGINEERING ARCHITECTURE'}</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h3 className="font-display-h3 text-[#27272a] tracking-tight">
                 {language === 'ar'
                   ? 'هل لديك متطلبات برمجية فريدة أو مشروع استثنائي؟'
                   : 'Need a specialized software solution tailored for your workflow?'}
               </h3>
-              <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed max-w-[65ch]">
+              <p className="text-xs sm:text-sm text-[#71717a] leading-relaxed max-w-[65ch]">
                 {language === 'ar'
                   ? 'مهندسونا مستعدون لتحليل متطلباتك بدقة واقتراح أفضل معمارية برمجية وتقنية تناسب ميزانيتك وأهداف نموك.'
                   : 'Our engineering architects will analyze your business requirements, recommend the ideal tech stack, and deliver a clear milestone roadmap.'}
@@ -661,7 +670,7 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
                   onNavigate('contact');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#6a5ed9] text-xs sm:text-sm font-medium text-white hover:bg-[#584dc7] transition-all shadow-md shadow-[#6a5ed9]/25 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#6a5ed9] text-xs sm:text-sm font-medium text-white hover:bg-[#584dc7] transition-all shadow-sm shadow-[#6a5ed9]/25 cursor-pointer"
               >
                 <span>{language === 'ar' ? 'تحدث مع فريقنا الهندسي' : 'Consult With Our Engineers'}</span>
                 <ArrowUpRight className={`w-4 h-4 ${language === 'ar' ? 'rotate-[-90deg]' : ''}`} />
@@ -672,7 +681,7 @@ export const HomeServicesSection: React.FC<HomeServicesSectionProps> = ({
                   onNavigate('services');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#27272a] hover:bg-[#3f3f46] border border-[#3f3f46] text-xs sm:text-sm font-medium text-white transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#fafafa] hover:bg-[#e4e4e7] border border-[#e4e4e7] text-xs sm:text-sm font-medium text-[#27272a] transition-all cursor-pointer"
               >
                 <span>{language === 'ar' ? 'استعراض كافة الخدمات' : 'All Services Details'}</span>
                 <ArrowRight className={`w-4 h-4 ${language === 'ar' ? 'rotate-180' : ''}`} />

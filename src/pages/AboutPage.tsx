@@ -245,7 +245,29 @@ export const AboutPage: React.FC<AboutPageProps> = ({ language, onNavigate }) =>
                   key={tech.name}
                   className="p-4 rounded-xl border border-[#e4e4e7] bg-white text-start hover:border-[#6a5ed9]/40 shadow-2xs hover:shadow-xs transition-all"
                 >
-                  <div className="text-xs font-mono text-[#3f71d4] font-medium">{tech.category}</div>
+                  <div className="text-xs font-mono text-[#3f71d4] font-medium">
+                    {language === 'ar'
+                      ? (tech.category === 'Frontend'
+                        ? 'واجهة أمامية'
+                        : tech.category === 'Language'
+                        ? 'لغة برمجة'
+                        : tech.category === 'Fullstack'
+                        ? 'مطور ويب كامل'
+                        : tech.category === 'Backend'
+                        ? 'خلفية برمجية'
+                        : tech.category === 'Mobile'
+                        ? 'تطبيقات الهواتف'
+                        : tech.category === 'Database'
+                        ? 'قواعد بيانات'
+                        : tech.category === 'DevOps'
+                        ? 'عمليات وتكامل'
+                        : tech.category === 'Design'
+                        ? 'تصميم واجهات'
+                        : tech.category === 'Workflow'
+                        ? 'تدفق عمل'
+                        : tech.category)
+                      : tech.category}
+                  </div>
                   <div className="text-base font-semibold text-[#27272a] mt-1">{tech.name}</div>
                   <div className="text-[11px] text-[#71717a] mt-1 line-clamp-2">{language === 'ar' ? tech.desc_ar : tech.desc_en}</div>
                 </div>

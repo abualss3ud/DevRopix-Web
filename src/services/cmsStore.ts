@@ -6,6 +6,8 @@ import {
   ContactMessage,
   GlobalSettings,
   HomepageContent,
+  JobApplication,
+  JobPosting,
   MediaItem,
   ProjectCategory,
   ProjectItem,
@@ -726,16 +728,17 @@ const SEED_SETTINGS: GlobalSettings = {
     logoUrl: '/logo.svg',
     faviconUrl: '/favicon.ico',
     email: 'contact@devropix.com',
-    phone: '+966 50 000 0000',
-    whatsapp: '+966 50 000 0000',
-    address_en: 'Riyadh Tech District, Kingdom of Saudi Arabia',
-    address_ar: 'حي واحة التقنية، الرياض، المملكة العربية السعودية',
+    phone: '+201110428301',
+    whatsapp: '+201110428301',
+    address_en: 'Hurghada, Red Sea, Egypt',
+    address_ar: 'الغردقة، البحر الأحمر، مصر',
   },
   social: {
     facebook: 'https://facebook.com/devropix',
     instagram: 'https://instagram.com/devropix',
     linkedin: 'https://linkedin.com/company/devropix',
     x: 'https://x.com/devropix',
+    tiktok: 'https://tiktok.com/@devropix',
     youtube: 'https://youtube.com/@devropix',
     github: 'https://github.com/devropix',
   },
@@ -744,6 +747,7 @@ const SEED_SETTINGS: GlobalSettings = {
     instagram: 'https://instagram.com/devropix',
     linkedin: 'https://linkedin.com/company/devropix',
     twitter: 'https://x.com/devropix',
+    tiktok: 'https://tiktok.com/@devropix',
     youtube: 'https://youtube.com/@devropix',
     github: 'https://github.com/devropix',
     discord: '',
@@ -760,8 +764,8 @@ const SEED_SETTINGS: GlobalSettings = {
   },
   contact: {
     contactEmail: 'projects@devropix.com',
-    whatsapp: '+966 50 000 0000',
-    phone: '+966 50 000 0000',
+    whatsapp: '+201110428301',
+    phone: '+201110428301',
     workingHours_en: 'Sunday - Thursday: 9:00 AM – 6:00 PM (GMT+3)',
     workingHours_ar: 'الأحد - الخميس: 9:00 صباحاً – 6:00 مساءً (توقيت مكة)',
   },
@@ -854,6 +858,120 @@ const SEED_HOMEPAGE: HomepageContent = {
     buttonLink: '/contact',
   },
 };
+
+// Initial Job Postings
+const SEED_JOBS: JobPosting[] = [
+  {
+    id: 'job_fullstack',
+    title_en: 'Senior Full-Stack TypeScript Engineer',
+    title_ar: 'مهندس برمجيات متكامل (Full-Stack TypeScript)',
+    department_en: 'Engineering',
+    department_ar: 'الهندسة والتطوير',
+    location_en: 'Hurghada, Egypt / Remote',
+    location_ar: 'الغردقة، مصر / عن بُعد',
+    type: 'Full-time',
+    experience_en: '3-5+ Years',
+    experience_ar: '٣-٥+ سنوات خبرة',
+    description_en: 'We are looking for an experienced Senior Full-Stack Engineer to lead the architecture and implementation of scalable web platforms, APIs, and real-time cloud services.',
+    description_ar: 'نبحث عن مهندس برمجيات أول ذو خبرة عالية لقيادة بناء وتطوير منصات الويب السحابية، وواجهات برمجة التطبيقات (APIs)، والأنظمة المتزامنة فائقة السرعة.',
+    requirements_en: [
+      'Strong proficiency with React, TypeScript, Node.js, and modern databases.',
+      'Experience architecting modular, testable, and production-grade applications.',
+      'Familiarity with cloud platforms (GCP, AWS) and Docker containerization.',
+      'Strong problem-solving and proactive communication skills.',
+    ],
+    requirements_ar: [
+      'إتقان عميق لتقنيات React وTypeScript وNode.js وقواعد البيانات الحديثة.',
+      'خبرة في تصميم وتطوير بنى برمجية معيارية وقابلة للتوسع والإنتاج الفعلي.',
+      'معرفة بمنصات الحوسبة السحابية (GCP، AWS) وتقنيات الحاويات Docker.',
+      'مهارات تواصل وحل مشكلات استثنائية ضمن بيئة عمل سريعة النمو.',
+    ],
+    responsibilities_en: [
+      'Build end-to-end features across frontend and backend services with clean architecture.',
+      'Optimize application performance, accessibility, and query latency.',
+      'Collaborate closely with UI/UX designers and product managers.',
+    ],
+    responsibilities_ar: [
+      'تطوير ميزات متكاملة في الواجهات الأمامية والأنظمة الخلفية بكود نظيف ومعياري.',
+      'تحسين سرعة وأداء الأنظمة ومعايير الأمان وسهولة الوصول وزمن الاستجابة.',
+      'التعاون الوثيق مع مصممي الواجهات ومديري المنتجات لتسليم المشروعات بجودة فائقة.',
+    ],
+    status: 'published',
+    postedAt: '2026-03-01',
+  },
+  {
+    id: 'job_mobile',
+    title_en: 'Mobile Application Developer (Flutter / React Native)',
+    title_ar: 'مطور تطبيقات هواتف ذكية (Flutter / React Native)',
+    department_en: 'Mobile Engineering',
+    department_ar: 'تطوير تطبيقات الجوال',
+    location_en: 'Hurghada, Egypt / Hybrid',
+    location_ar: 'الغردقة، مصر / هجين',
+    type: 'Full-time',
+    experience_en: '2-4 Years',
+    experience_ar: '٢-٤ سنوات خبرة',
+    description_en: 'Seeking a talented mobile engineer passionate about crafting smooth 60fps animations, intuitive offline-first mobile apps, and robust API integrations.',
+    description_ar: 'نبحث عن مطور تطبيقات هواتف موهوب وشغوف ببناء تطبيقات سلسة تدعم العمل دون اتصال بالإنترنت مع تجربة مستخدم مبهرة.',
+    requirements_en: [
+      'Proven experience shipping iOS and Android apps using Flutter or React Native.',
+      'Solid grasp of state management, offline storage, and push notifications.',
+      'Strong eye for micro-interactions and pixel-perfect design adherence.',
+    ],
+    requirements_ar: [
+      'خبرة عملية مثبتة في نشر تطبيقات لأنظمة iOS وAndroid باستخدام Flutter أو React Native.',
+      'فهم متعمق لإدارة الحالة والتخزين المحلي والإشعارات الفورية.',
+      'اهتمام فائق بالتفاصيل البصرية والتطابق التام مع تصاميم واجهات الاستخدام.',
+    ],
+    responsibilities_en: [
+      'Develop high-performance mobile apps for diverse consumer and enterprise domains.',
+      'Integrate RESTful and WebSocket backends reliably with complete error handling.',
+      'Maintain automated build and distribution pipelines for app store submissions.',
+    ],
+    responsibilities_ar: [
+      'برمجة وتطوير تطبيقات جوال عالية الكفاءة لمختلف قطاعات الأعمال والمستهلكين.',
+      'ربط الأنظمة الخلفية عبر RESTful وWebSockets مع معالجة استثنائية للأخطاء.',
+      'إدارة وتسهيل مسارات النشر الآلي على متجري App Store وGoogle Play.',
+    ],
+    status: 'published',
+    postedAt: '2026-03-10',
+  },
+  {
+    id: 'job_uiux',
+    title_en: 'UI/UX Product & Design Systems Designer',
+    title_ar: 'مصمم واجهات وتجربة مستخدم وأنظمة تصميم (UI/UX)',
+    department_en: 'Design & Experience',
+    department_ar: 'التصميم وتجربة المستخدم',
+    location_en: 'Hurghada, Egypt / Remote',
+    location_ar: 'الغردقة، مصر / عن بُعد',
+    type: 'Full-time',
+    experience_en: '3+ Years',
+    experience_ar: '٣+ سنوات خبرة',
+    description_en: 'Join our design collective to create high-conversion interfaces, comprehensive Figma design systems, and delightful digital product journeys.',
+    description_ar: 'انضم إلى فريق التصميم لتصميم واجهات مستخدم متميزة، وأنظمة تصميم شاملة في Figma، ورحلات رقمية ملهمة لعملائنا.',
+    requirements_en: [
+      'Extensive portfolio demonstrating web and mobile UX case studies with rationale.',
+      'Mastery of Figma (auto-layout, components, variables, tokens) and interactive prototyping.',
+      'Understanding of modern frontend styling constraints (Tailwind CSS, responsive breakpoints).',
+    ],
+    requirements_ar: [
+      'ملف أعمال (Portfolio) غني بدراسات حالة حقيقية لتطبيقات الويب والجوال مع توضيح منهجية التفكير.',
+      'احتراف تام لبرنامج Figma ومكوناته ومتغيراته ونماذج التفاعل الأولية.',
+      'فهم عملي لمعايير التنسيق البرمجية الحديثة مثل Tailwind CSS واستجابة الشاشات المختلفة.',
+    ],
+    responsibilities_en: [
+      'Lead user research, wireframing, high-fidelity UI design, and design system governance.',
+      'Work alongside engineers during implementation to ensure design fidelity.',
+      'Conduct usability tests and iterate based on quantitative metrics.',
+    ],
+    responsibilities_ar: [
+      'إجراء بحوث المستخدمين، وتصميم المخططات الهيكلية والواجهات النهائية عالية الدقة.',
+      'متابعة ومراجعة التنفيذ البرمجي مع المطورين لضمان التطابق التام مع التصميم.',
+      'إجراء اختبارات قابلية الاستخدام وتطوير الحلول وفق البيانات وتجربة العملاء.',
+    ],
+    status: 'published',
+    postedAt: '2026-03-15',
+  },
+];
 
 // Initial Activity Logs
 const SEED_ACTIVITY_LOGS: ActivityLog[] = [
@@ -1201,6 +1319,17 @@ class CmsStoreService {
     return true;
   }
 
+  public toggleBlogPostPublish(id: string): boolean {
+    return this.toggleBlogPublish(id);
+  }
+
+  public toggleBlogPostFeatured(id: string): boolean {
+    const post = this.getBlogPosts().find((p) => p.id === id);
+    if (!post) return false;
+    this.updateBlogPost(id, { featured: !post.featured });
+    return true;
+  }
+
   // --- BLOG CATEGORIES CRUD ---
   public getBlogCategories(): BlogCategory[] {
     return this.get<BlogCategory[]>('blog_categories', SEED_BLOG_CATEGORIES);
@@ -1352,6 +1481,72 @@ class CmsStoreService {
     return this.getMessages().filter((m) => m.status === 'unread').length;
   }
 
+  // --- CAREERS & JOB POSTINGS ---
+  public getJobs(): JobPosting[] {
+    return this.get<JobPosting[]>('jobs', SEED_JOBS);
+  }
+
+  public getPublishedJobs(): JobPosting[] {
+    return this.getJobs().filter((j) => j.status === 'published');
+  }
+
+  public getJobById(id: string): JobPosting | undefined {
+    return this.getJobs().find((j) => j.id === id);
+  }
+
+  public saveJob(job: JobPosting): JobPosting {
+    const jobs = this.getJobs();
+    const idx = jobs.findIndex((j) => j.id === job.id);
+    if (idx >= 0) {
+      jobs[idx] = job;
+      this.set('jobs', [...jobs]);
+      this.logActivity('Updated Job', 'Job', job.title_en);
+    } else {
+      jobs.unshift(job);
+      this.set('jobs', [...jobs]);
+      this.logActivity('Created Job', 'Job', job.title_en);
+    }
+    return job;
+  }
+
+  public deleteJob(id: string): boolean {
+    const jobs = this.getJobs();
+    const target = jobs.find((j) => j.id === id);
+    if (!target) return false;
+    this.set('jobs', jobs.filter((j) => j.id !== id));
+    this.logActivity('Deleted Job', 'Job', target.title_en);
+    return true;
+  }
+
+  // --- JOB APPLICATIONS ---
+  public getJobApplications(): JobApplication[] {
+    return this.get<JobApplication[]>('job_applications', []);
+  }
+
+  public submitJobApplication(
+    app: Omit<JobApplication, 'id' | 'createdAt' | 'status'>
+  ): JobApplication {
+    const apps = this.getJobApplications();
+    const newApp: JobApplication = {
+      ...app,
+      id: `app_${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      status: 'new',
+    };
+    this.set('job_applications', [newApp, ...apps]);
+    this.logActivity('Job Application Received', 'Job Application', `${newApp.fullName} for ${newApp.jobTitle}`);
+    return newApp;
+  }
+
+  public updateApplicationStatus(id: string, status: JobApplication['status']): void {
+    const apps = this.getJobApplications();
+    const idx = apps.findIndex((a) => a.id === id);
+    if (idx !== -1) {
+      apps[idx].status = status;
+      this.set('job_applications', [...apps]);
+    }
+  }
+
   // --- MEDIA ASSETS ---
   public getMedia(): MediaItem[] {
     return this.get<MediaItem[]>('media', SEED_MEDIA);
@@ -1389,17 +1584,63 @@ class CmsStoreService {
   // --- SETTINGS ---
   public getSettings(): GlobalSettings {
     const raw = this.get<GlobalSettings>('settings', SEED_SETTINGS);
+    let changed = false;
+
+    // Migrate old placeholder phone/whatsapp numbers cached in user's localStorage
+    if (!raw.contact) {
+      raw.contact = { ...SEED_SETTINGS.contact };
+      changed = true;
+    }
+    if (!raw.general) {
+      raw.general = { ...SEED_SETTINGS.general };
+      changed = true;
+    }
+
+    if (!raw.contact.whatsapp || raw.contact.whatsapp.includes('966') || raw.contact.whatsapp.includes('000 0000')) {
+      raw.contact.whatsapp = '+201110428301';
+      changed = true;
+    }
+    if (!raw.general.whatsapp || raw.general.whatsapp.includes('966') || raw.general.whatsapp.includes('000 0000')) {
+      raw.general.whatsapp = '+201110428301';
+      changed = true;
+    }
+    if (!raw.contact.phone || raw.contact.phone.includes('966') || raw.contact.phone.includes('000 0000')) {
+      raw.contact.phone = '+201110428301';
+      changed = true;
+    }
+    if (!raw.general.phone || raw.general.phone.includes('966') || raw.general.phone.includes('000 0000')) {
+      raw.general.phone = '+201110428301';
+      changed = true;
+    }
+
+    if (!raw.general.address_en || raw.general.address_en.includes('Riyadh') || raw.general.address_en.includes('Saudi')) {
+      raw.general.address_en = 'Hurghada, Red Sea, Egypt';
+      changed = true;
+    }
+    if (!raw.general.address_ar || raw.general.address_ar.includes('الرياض') || raw.general.address_ar.includes('السعودية')) {
+      raw.general.address_ar = 'الغردقة، البحر الأحمر، مصر';
+      changed = true;
+    }
+
     if (!raw.socialLinks) {
       raw.socialLinks = {
         facebook: raw.social?.facebook || SEED_SETTINGS.social.facebook,
         instagram: raw.social?.instagram || SEED_SETTINGS.social.instagram,
         linkedin: raw.social?.linkedin || SEED_SETTINGS.social.linkedin,
         twitter: raw.social?.x || SEED_SETTINGS.social.x,
+        tiktok: (raw.social as any)?.tiktok || 'https://tiktok.com/@devropix',
         youtube: raw.social?.youtube || SEED_SETTINGS.social.youtube,
         github: raw.social?.github || SEED_SETTINGS.social.github,
         discord: '',
         dribbble: '',
       };
+      changed = true;
+    } else if (!raw.socialLinks.tiktok) {
+      raw.socialLinks.tiktok = 'https://tiktok.com/@devropix';
+      changed = true;
+    }
+
+    if (changed) {
       safeLocalStorage.setItem(CMS_STORAGE_PREFIX + 'settings', JSON.stringify(raw));
     }
     return raw;
@@ -1472,6 +1713,8 @@ class CmsStoreService {
       clients: this.getClients(),
       messages: this.getMessages(),
       media: this.getMedia(),
+      jobs: this.getJobs(),
+      job_applications: this.getJobApplications(),
       settings: this.getSettings(),
       homepage: this.getHomepage(),
       activity_logs: this.getActivityLogs(),
@@ -1496,6 +1739,8 @@ class CmsStoreService {
       if (data.clients) this.set('clients', data.clients);
       if (data.messages) this.set('messages', data.messages);
       if (data.media) this.set('media', data.media);
+      if (data.jobs) this.set('jobs', data.jobs);
+      if (data.job_applications) this.set('job_applications', data.job_applications);
       if (data.settings) this.set('settings', data.settings);
       if (data.homepage) this.set('homepage', data.homepage);
       this.logActivity('Imported Database', 'System', 'Loaded from JSON Backup');

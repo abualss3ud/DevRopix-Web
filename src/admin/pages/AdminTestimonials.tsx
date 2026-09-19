@@ -51,13 +51,13 @@ export const AdminTestimonials: React.FC<AdminTestimonialsProps> = ({ language, 
       if (!searchQuery.trim()) return true;
       const q = searchQuery.toLowerCase();
       return (
-        t.author.toLowerCase().includes(q) ||
-        t.company.toLowerCase().includes(q) ||
-        t.quote_en.toLowerCase().includes(q) ||
-        t.quote_ar.toLowerCase().includes(q)
+        (t.author || '').toLowerCase().includes(q) ||
+        (t.company || '').toLowerCase().includes(q) ||
+        (t.quote_en || '').toLowerCase().includes(q) ||
+        (t.quote_ar || '').toLowerCase().includes(q)
       );
     })
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   const handleOpenCreate = () => {
     setEditingTestimonial(null);
@@ -95,7 +95,7 @@ export const AdminTestimonials: React.FC<AdminTestimonialsProps> = ({ language, 
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.author.trim() || !formData.quote_en.trim() || !formData.quote_ar.trim()) {
+    if (!formData.author.trim() || !(formData.quote_en || '').trim() || !(formData.quote_ar || '').trim()) {
       showToast(isAr ? 'يرجى إكمال البيانات المطلوبة' : 'Please complete all required fields', 'error');
       return;
     }
@@ -184,7 +184,7 @@ export const AdminTestimonials: React.FC<AdminTestimonialsProps> = ({ language, 
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-3.5 h-3.5 ${i < t.rating ? 'fill-amber-400' : 'text-slate-200'}`}
+                      className={`w-3.5 h-3.5 ${i < (t.rating ?? 5) ? 'fill-amber-400' : 'text-slate-200'}`}
                     />
                   ))}
                 </div>

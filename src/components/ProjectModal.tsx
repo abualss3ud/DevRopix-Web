@@ -35,7 +35,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         <button
           id="close-project-modal-btn"
           onClick={onClose}
-          className="absolute top-5 ltr:right-5 rtl:left-5 p-2 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-[#71717a] hover:text-[#27272a] hover:bg-[#e4e4e7] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6a5ed9] cursor-pointer"
+          className="absolute top-5 end-5 p-2 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-[#71717a] hover:text-[#27272a] hover:bg-[#e4e4e7] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6a5ed9] cursor-pointer"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -44,17 +44,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         {/* Category & Title */}
         <div className="flex flex-wrap items-center gap-2 mb-2 pe-8">
           <span className="px-2.5 py-1 rounded-md bg-[#6a5ed9]/10 text-[#6a5ed9] font-eyebrow">
-            {project.category}
+            {language === 'ar' ? (project.category_ar || project.category) : (project.category_en || project.category)}
           </span>
-          <span className="text-xs text-[#71717a]">• {project.clientType}</span>
+          <span className="text-xs text-[#71717a]">
+            • {language === 'ar' ? (project.clientType_ar || project.clientType) : (project.clientType_en || project.clientType)}
+          </span>
         </div>
 
         <h3 id="project-modal-title" className="font-display-h2 text-[#27272a] mb-3">
-          {project.name}
+          {language === 'ar' ? (project.name_ar || project.name) : (project.name_en || project.name)}
         </h3>
 
         <p className="text-sm sm:text-base text-[#71717a] leading-relaxed mb-6">
-          {project.summary}
+          {language === 'ar' ? (project.summary_ar || project.summary) : (project.summary_en || project.summary)}
         </p>
 
         {/* Problem vs Solution Grid */}
@@ -65,7 +67,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               <span className="w-2 h-2 rounded-full bg-[#db5434]" />
               {t.projects.challengeTitle}
             </h4>
-            <p className="text-xs text-[#71717a] leading-relaxed">{project.challenge}</p>
+            <p className="text-xs text-[#71717a] leading-relaxed">
+              {language === 'ar' ? (project.challenge_ar || project.challenge) : (project.challenge_en || project.challenge)}
+            </p>
           </div>
 
           {/* Solution */}
@@ -74,7 +78,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               <span className="w-2 h-2 rounded-full bg-[#3f71d4]" />
               {t.projects.solutionTitle}
             </h4>
-            <p className="text-xs text-[#71717a] leading-relaxed">{project.solution}</p>
+            <p className="text-xs text-[#71717a] leading-relaxed">
+              {language === 'ar' ? (project.solution_ar || project.solution) : (project.solution_en || project.solution)}
+            </p>
           </div>
         </div>
 
@@ -85,7 +91,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             {t.projects.resultsTitle}
           </h4>
           <div className="space-y-2">
-            {(project.results || []).map((res, idx) => (
+            {((language === 'ar' ? (project.results_ar || project.results) : (project.results_en || project.results)) || []).map((res, idx) => (
               <div key={idx} className="flex items-start gap-2.5 text-xs text-[#27272a]">
                 <CheckCircle2 className="w-4 h-4 text-[#1bb152] flex-shrink-0 mt-0.5" />
                 <span className="text-[#71717a] font-medium">{res}</span>
@@ -102,7 +108,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               {t.projects.deliverablesTitle}
             </h4>
             <div className="flex flex-wrap gap-1.5">
-              {(project.deliverables || []).map((item, idx) => (
+              {((language === 'ar' ? (project.deliverables_ar || project.deliverables) : (project.deliverables_en || project.deliverables)) || []).map((item, idx) => (
                 <span
                   key={idx}
                   className="px-2.5 py-1 rounded bg-[#fafafa] border border-[#e4e4e7] text-[11px] text-[#71717a]"

@@ -29,7 +29,8 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
 
   const title = serviceTranslation?.title || service.id;
   const fullDesc = serviceTranslation?.fullDesc || serviceTranslation?.desc || '';
-  const metric = serviceTranslation?.metric || service.metrics;
+  const metric = serviceTranslation?.metric || (language === 'ar' ? (service.metrics_ar || service.metrics) : (service.metrics_en || service.metrics));
+  const deliverables = language === 'ar' ? (service.deliverables_ar || service.deliverables) : (service.deliverables_en || service.deliverables);
 
   return (
     <div
@@ -87,7 +88,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
             {t.services.deliverablesTitle}
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {service.deliverables.map((item: string, idx: number) => (
+            {(deliverables || []).map((item: string, idx: number) => (
               <div
                 key={idx}
                 className="flex items-start gap-2 p-2.5 rounded-xl bg-[#fafafa] border border-[#e4e4e7] text-xs text-[#71717a]"
@@ -106,7 +107,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
             {t.services.technologiesTitle}
           </h4>
           <div className="flex flex-wrap gap-2">
-            {service.techStack.map((tech: string, idx: number) => (
+            {(service.techStack || []).map((tech: string, idx: number) => (
               <span
                 key={idx}
                 className="px-2.5 py-1 rounded-md bg-[#fafafa] border border-[#e4e4e7] text-xs font-mono text-[#27272a]"

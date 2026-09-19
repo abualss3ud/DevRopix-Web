@@ -7,6 +7,7 @@ export type PageId =
   | 'about'
   | 'blog'
   | 'contact'
+  | 'careers'
   | 'privacy'
   | 'terms'
   | 'admin';
@@ -71,6 +72,8 @@ export interface ProjectItem {
   name_en?: string;
   name_ar?: string;
   category?: string;
+  category_en?: string;
+  category_ar?: string;
   categoryKey?: string;
   categoryId?: string;
   clientType?: string;
@@ -92,8 +95,8 @@ export interface ProjectItem {
   solution_en?: string;
   solution_ar?: string;
   results?: string[];
-  results_en?: string | string[];
-  results_ar?: string | string[];
+  results_en?: string[];
+  results_ar?: string[];
   techStack?: string[];
   deliverables?: string[];
   deliverables_en?: string[];
@@ -132,7 +135,10 @@ export interface BlogCategory {
   name_ar: string;
   slug: string;
   description?: string;
+  description_en?: string;
+  description_ar?: string;
   status?: 'active' | 'inactive';
+  order?: number;
 }
 
 export interface BlogPost {
@@ -145,36 +151,44 @@ export interface BlogPost {
   category_en?: string;
   category_ar?: string;
   categoryId?: string;
-  date: string;
+  date?: string;
   readTime?: string;
   readTime_en?: string;
   readTime_ar?: string;
   excerpt?: string;
   excerpt_en?: string;
   excerpt_ar?: string;
-  content?: string[];
-  content_en?: string[];
-  content_ar?: string[];
-  author: {
+  content?: string[] | string;
+  content_en?: string[] | string;
+  content_ar?: string[] | string;
+  author?: {
     name: string;
     role?: string;
     role_en?: string;
     role_ar?: string;
     avatar?: string;
   };
-  tags: string[];
+  tags?: string[];
   featuredImage?: string;
+  coverImage?: string;
   status?: 'published' | 'draft';
   featured?: boolean;
   publishedDate?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  keywords?: string;
+  canonicalUrl?: string;
   seoTitle_en?: string;
   seoTitle_ar?: string;
   seoDesc_en?: string;
   seoDesc_ar?: string;
   seoKeywords?: string[];
+  order?: number;
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type BlogPostItem = BlogPost;
 
 export interface TestimonialItem {
   id: string;
@@ -284,6 +298,7 @@ export interface GlobalSettings {
     instagram: string;
     linkedin: string;
     x: string;
+    tiktok?: string;
     youtube: string;
     github: string;
   };
@@ -293,6 +308,7 @@ export interface GlobalSettings {
     linkedin?: string;
     x?: string;
     twitter?: string;
+    tiktok?: string;
     discord?: string;
     dribbble?: string;
     youtube?: string;
@@ -370,3 +386,40 @@ export interface HomepageContent {
 }
 
 export type SiteSettings = GlobalSettings;
+
+export interface JobPosting {
+  id: string;
+  title_en: string;
+  title_ar: string;
+  department_en: string;
+  department_ar: string;
+  location_en: string;
+  location_ar: string;
+  type: 'Full-time' | 'Part-time' | 'Contract' | 'Remote';
+  experience_en: string;
+  experience_ar: string;
+  description_en: string;
+  description_ar: string;
+  requirements_en: string[];
+  requirements_ar: string[];
+  responsibilities_en: string[];
+  responsibilities_ar: string[];
+  status: 'published' | 'draft' | 'closed';
+  postedAt: string;
+}
+
+export interface JobApplication {
+  id: string;
+  jobId: string;
+  jobTitle: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  portfolioUrl?: string;
+  linkedinUrl?: string;
+  resumeUrl?: string;
+  resumeFileName?: string;
+  coverLetter?: string;
+  createdAt: string;
+  status: 'new' | 'reviewed' | 'shortlisted' | 'rejected';
+}

@@ -79,6 +79,13 @@ export const translations = {
           'Launching is just the beginning. Our engineering retainers provide proactive security auditing, dependency upgrades, database tuning, 24/7 uptime monitoring, and ongoing feature rollouts.',
         metric: 'SLA-backed 24/7 reliability',
       },
+      cloudDevops: {
+        title: 'Cloud Infrastructure & DevOps',
+        desc: 'Scalable cloud infrastructure, CI/CD pipelines, container orchestration, and 24/7 monitoring.',
+        fullDesc:
+          'We architect resilient cloud architectures on AWS and Google Cloud with automated deployment workflows, Infrastructure as Code, and enterprise security compliance.',
+        metric: '99.99% Uptime & Automated CI/CD',
+      },
     },
     whyUs: {
       tag: 'Why DevRopix',
@@ -232,7 +239,7 @@ export const translations = {
       directTitle: 'Direct Inquiries',
       emailValue: 'hello@devropix.com',
       locationTitle: 'Headquarters & Regions',
-      locationValue: 'Riyadh, Saudi Arabia & Global Remote Team',
+      locationValue: 'Hurghada, Red Sea, Egypt & Global Remote Team',
       hoursTitle: 'Working Hours',
       hoursValue: 'Sunday – Thursday: 9:00 AM – 6:00 PM (GMT+3)',
       ndaTitle: 'Confidentiality Guaranteed',
@@ -243,6 +250,7 @@ export const translations = {
       company: 'Company',
       services: 'Services',
       contact: 'Contact',
+      careers: 'Careers',
       rights: 'All rights reserved.',
       privacy: 'Privacy Policy',
       terms: 'Terms & Conditions',
@@ -334,6 +342,13 @@ export const translations = {
         fullDesc:
           'إطلاق المشروع هو البداية فقط. توفر اتفاقيات الصيانة لدينا فحصاً أمنياً استباقياً، تحديثات الحزم، ضبط قواعد البيانات، ومراقبة استقرار الأنظمة بنسبة 99.9%.',
         metric: 'اتفاقيات مستوى خدمة وضمان الجاهزية',
+      },
+      cloudDevops: {
+        title: 'البنية السحابية وهندسة الديف أوبس',
+        desc: 'بنية تحتية سحابية قابلة للتوسع، خطوط نشر مستمر CI/CD، وإدارة الحاويات والمراقبة على مدار الساعة.',
+        fullDesc:
+          'نهندس بنى سحابية عالية الاعتمادية على AWS وGoogle Cloud بأتمتة كاملة لإجراءات النشر، وإدارة البنية التحتية ككود (IaC)، وتطبيق أعلى معايير الأمان المؤسسي.',
+        metric: 'جاهزية بنسبة 99.99% وأتمتة شاملة',
       },
     },
     whyUs: {
@@ -488,7 +503,7 @@ export const translations = {
       directTitle: 'قنوات التواصل المباشر',
       emailValue: 'hello@devropix.com',
       locationTitle: 'المقر وفريق العمل',
-      locationValue: 'الرياض، المملكة العربية السعودية وفريق موزع عالمياً',
+      locationValue: 'الغردقة، البحر الأحمر، مصر وفريق موزع عالمياً',
       hoursTitle: 'أوقات العمل الرسمية',
       hoursValue: 'الأحد – الخميس: 9:00 صباحاً – 6:00 مساءً (GMT+3)',
       ndaTitle: 'سرية تامة مضمونة (NDA)',
@@ -499,6 +514,7 @@ export const translations = {
       company: 'الشركة',
       services: 'الخدمات',
       contact: 'التواصل',
+      careers: 'الوظائف',
       rights: 'جميع الحقوق محفوظة.',
       privacy: 'سياسة الخصوصية',
       terms: 'الشروط والأحكام',

@@ -9,12 +9,14 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { ServiceModal } from './components/ServiceModal';
 import { ProjectModal } from './components/ProjectModal';
+import { WhatsAppButton } from './components/WhatsAppButton';
 import { HomePage } from './pages/HomePage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { AboutPage } from './pages/AboutPage';
 import { BlogPage } from './pages/BlogPage';
 import { ContactPage } from './pages/ContactPage';
+import { CareersPage } from './pages/CareersPage';
 import { LegalPage } from './pages/LegalPage';
 import { ToastProvider } from './admin/context/ToastContext';
 import { AdminLayout } from './admin/AdminLayout';
@@ -65,6 +67,10 @@ export default function App() {
         en: 'Start a Project – Contact DevRopix',
         ar: 'ابدأ مشروعك – تواصل مع ديف روبيكس',
       },
+      careers: {
+        en: 'Careers & Open Positions – DevRopix',
+        ar: 'الوظائف الشاغرة والتوظيف – ديف روبيكس',
+      },
       privacy: {
         en: 'Privacy Policy – DevRopix',
         ar: 'سياسة الخصوصية – ديف روبيكس',
@@ -95,6 +101,7 @@ export default function App() {
         'about',
         'blog',
         'contact',
+        'careers',
         'privacy',
         'terms',
         'admin',
@@ -222,6 +229,13 @@ export default function App() {
               />
             )}
 
+            {currentPage === 'careers' && (
+              <CareersPage
+                language={language}
+                onNavigate={navigateTo}
+              />
+            )}
+
             {(currentPage === 'privacy' || currentPage === 'terms') && (
               <LegalPage
                 type={currentPage}
@@ -255,11 +269,14 @@ export default function App() {
               onClose={() => setActiveProjectModal(null)}
               language={language}
               onStartProjectClick={() => {
-                setPreselectedService(activeProjectModal.category);
+                setPreselectedService(activeProjectModal.category || '');
                 navigateTo('contact');
               }}
             />
           )}
+
+          {/* Floating WhatsApp Quick Contact Button */}
+          <WhatsAppButton language={language} />
         </div>
       )}
     </ToastProvider>

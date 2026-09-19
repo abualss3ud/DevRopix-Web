@@ -40,8 +40,35 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
   const [deleteTarget, setDeleteTarget] = useState<BlogPostItem | null>(null);
   const [activeTab, setActiveTab] = useState<'content' | 'author' | 'seo'>('content');
 
+  interface BlogFormData {
+    title_en: string;
+    title_ar: string;
+    slug: string;
+    excerpt_en: string;
+    excerpt_ar: string;
+    content_en: string;
+    content_ar: string;
+    coverImage: string;
+    category: string;
+    author: {
+      name: string;
+      avatar: string;
+      role: string;
+    };
+    tags: string[];
+    readTime_en: string;
+    readTime_ar: string;
+    status: 'published' | 'draft';
+    featured: boolean;
+    order: number;
+    seoTitle: string;
+    seoDescription: string;
+    keywords: string;
+    canonicalUrl: string;
+  }
+
   // Form State
-  const [formData, setFormData] = useState<Omit<BlogPostItem, 'id' | 'createdAt' | 'updatedAt'>>({
+  const [formData, setFormData] = useState<BlogFormData>({
     title_en: '',
     title_ar: '',
     slug: '',
@@ -93,12 +120,12 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
       if (!searchQuery.trim()) return true;
       const q = searchQuery.toLowerCase();
       return (
-        p.title_en.toLowerCase().includes(q) ||
-        p.title_ar.toLowerCase().includes(q) ||
-        p.excerpt_en.toLowerCase().includes(q)
+        (p.title_en || '').toLowerCase().includes(q) ||
+        (p.title_ar || '').toLowerCase().includes(q) ||
+        (p.excerpt_en || '').toLowerCase().includes(q)
       );
     })
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   const handleOpenCreate = () => {
     setEditingPost(null);
@@ -136,25 +163,29 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
     setEditingPost(post);
     setActiveTab('content');
     setFormData({
-      title_en: post.title_en,
-      title_ar: post.title_ar,
-      slug: post.slug,
-      excerpt_en: post.excerpt_en,
-      excerpt_ar: post.excerpt_ar,
-      content_en: post.content_en,
-      content_ar: post.content_ar,
-      coverImage: post.coverImage,
-      category: post.category,
-      author: { ...post.author },
+      title_en: post.title_en || '',
+      title_ar: post.title_ar || '',
+      slug: post.slug || '',
+      excerpt_en: post.excerpt_en || '',
+      excerpt_ar: post.excerpt_ar || '',
+      content_en: Array.isArray(post.content_en) ? post.content_en.join('\n\n') : (post.content_en || ''),
+      content_ar: Array.isArray(post.content_ar) ? post.content_ar.join('\n\n') : (post.content_ar || ''),
+      coverImage: post.coverImage || post.featuredImage || '',
+      category: post.category || 'Engineering',
+      author: {
+        name: post.author?.name || 'DevRopix Tech Team',
+        avatar: post.author?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+        role: post.author?.role || 'Staff Engineers',
+      },
       tags: [...(post.tags || [])],
-      readTime_en: post.readTime_en,
-      readTime_ar: post.readTime_ar,
-      status: post.status,
-      featured: post.featured,
-      order: post.order,
+      readTime_en: post.readTime_en || '5 min read',
+      readTime_ar: post.readTime_ar || '5 دقائق قراءة',
+      status: post.status || 'published',
+      featured: !!post.featured,
+      order: post.order || 1,
       seoTitle: post.seoTitle || '',
       seoDescription: post.seoDescription || '',
-      keywords: post.keywords || '',
+      keywords: Array.isArray(post.keywords) ? post.keywords.join(', ') : (post.keywords || ''),
       canonicalUrl: post.canonicalUrl || '',
     });
     setIsModalOpen(true);
@@ -175,10 +206,10 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
     const finalData = { ...formData, slug: cleanSlug };
 
     if (editingPost) {
-      cmsStore.updateBlogPost(editingPost.id, finalData);
+      cmsStore.updateBlogPost(editingPost.id, finalData as unknown as Partial<BlogPostItem>);
       showToast(isAr ? 'تم تحديث المقال بنجاح' : 'Blog post updated successfully', 'success');
     } else {
-      cmsStore.createBlogPost(finalData);
+      cmsStore.createBlogPost(finalData as unknown as Omit<BlogPostItem, 'id' | 'createdAt' | 'updatedAt'>);
       showToast(isAr ? 'تم نشر المقال بنجاح' : 'New article created successfully', 'success');
     }
 
@@ -219,13 +250,13 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
 
   const addTag = () => {
     if (tagInput.trim()) {
-      setFormData((prev) => ({ ...prev, tags: [...prev.tags, tagInput.trim()] }));
+      setFormData((prev) => ({ ...prev, tags: [...(prev.tags || []), tagInput.trim()] }));
       setTagInput('');
     }
   };
 
   const removeTag = (idx: number) => {
-    setFormData((prev) => ({ ...prev, tags: prev.tags.filter((_, i) => i !== idx) }));
+    setFormData((prev) => ({ ...prev, tags: (prev.tags || []).filter((_: string, i: number) => i !== idx) }));
   };
 
   return (
@@ -326,8 +357,8 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
                         <img
-                          src={post.coverImage}
-                          alt={post.title_en}
+                          src={post.coverImage || post.featuredImage}
+                          alt={post.title_en || 'Article'}
                           className="w-12 h-9 rounded-lg object-cover border border-[#e4e4e7] shrink-0"
                         />
                         <div>
@@ -344,7 +375,7 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
                       </span>
                     </td>
                     <td className="py-3.5 px-4">
-                      <p className="font-semibold text-[#27272a]">{post.author.name}</p>
+                      <p className="font-semibold text-[#27272a]">{post.author?.name || 'DevRopix Team'}</p>
                       <p className="text-[10px] text-[#71717a]">{isAr ? post.readTime_ar : post.readTime_en}</p>
                     </td>
                     <td className="py-3.5 px-4">
@@ -660,7 +691,7 @@ export const AdminBlog: React.FC<AdminBlogProps> = ({ language, highlightId }) =
                       </button>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      {formData.tags.map((tag, idx) => (
+                      {(formData.tags || []).map((tag: string, idx: number) => (
                         <span
                           key={idx}
                           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs bg-emerald-50 text-[#1bb152] border border-emerald-200"

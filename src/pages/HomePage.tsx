@@ -300,18 +300,20 @@ export const HomePage: React.FC<HomePageProps> = ({
                     
                     {/* Floating Tech Pill */}
                     <span className="absolute top-4 start-4 px-3 py-1 rounded-lg bg-white/95 backdrop-blur-xs text-[10px] font-mono font-bold text-[#6a5ed9] shadow-xs uppercase tracking-wider">
-                      {featuredProject.category}
+                      {language === 'ar' ? (featuredProject.category_ar || featuredProject.category) : (featuredProject.category_en || featuredProject.category)}
                     </span>
 
                     {/* Floating Production Badge */}
                     <span className="absolute top-4 end-4 px-2.5 py-1 rounded-md bg-zinc-900/75 backdrop-blur-xs text-[10px] font-semibold text-[#1bb152] shadow-xs flex items-center gap-1.5 border border-[#1bb152]/30">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#1bb152] animate-ping" />
-                      Live in Production
+                      {language === 'ar' ? 'يعمل في بيئة الإنتاج' : 'Live in Production'}
                     </span>
 
                     {/* Overlay Name & Sector */}
                     <div className="absolute bottom-6 start-6 end-6 text-start text-white">
-                      <div className="text-[10px] font-mono text-slate-300 uppercase tracking-widest">{featuredProject.clientType}</div>
+                      <div className="text-[10px] font-mono text-slate-300 uppercase tracking-widest">
+                        {language === 'ar' ? (featuredProject.clientType_ar || featuredProject.clientType) : (featuredProject.clientType_en || featuredProject.clientType)}
+                      </div>
                       <h4 className="text-xl sm:text-2xl font-bold mt-1 text-white">
                         {language === 'ar' ? (featuredProject.name_ar || featuredProject.name) : (featuredProject.name_en || featuredProject.name)}
                       </h4>
@@ -395,12 +397,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                       
                       {/* Floating Category Badge */}
                       <span className="absolute top-4 start-4 px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur-xs text-[10px] font-mono font-bold text-[#6a5ed9] shadow-xs uppercase tracking-wider">
-                        {project.category}
+                        {language === 'ar' ? (project.category_ar || project.category) : (project.category_en || project.category)}
                       </span>
                       
                       {/* Client Type badge */}
                       <span className="absolute top-4 end-4 px-2 py-0.5 rounded-md bg-zinc-900/70 backdrop-blur-xs text-[10px] font-medium text-white shadow-xs">
-                        {project.clientType}
+                        {language === 'ar' ? (project.clientType_ar || project.clientType) : (project.clientType_en || project.clientType)}
                       </span>
                     </div>
 
@@ -438,7 +440,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <span>{t.projects.viewDetails}</span>
                       <ArrowUpRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${language === 'ar' ? 'rotate-[-90deg]' : ''}`} />
                     </button>
-                    <span className="text-[9px] font-mono font-medium text-slate-400">Delivered by DevRopix</span>
+                    <span className="text-[9px] font-mono font-medium text-slate-400">
+                      {language === 'ar' ? 'تم التنفيذ بواسطة DevRopix' : 'Delivered by DevRopix'}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -650,7 +654,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                   <div className="pt-5 mt-5 border-t border-[#e4e4e7] flex items-center justify-between">
                     <span className="text-[11px] text-[#71717a]">
-                      {language === 'ar' ? post.date.replace('Sep', 'سبتمبر').replace('Aug', 'أغسطس').replace('Jul', 'يوليو') : post.date}
+                      {language === 'ar' ? (post.date || '').replace('Sep', 'سبتمبر').replace('Aug', 'أغسطس').replace('Jul', 'يوليو') : (post.date || '')}
                     </span>
                     <button
                       onClick={() => onOpenBlogPost(post.id)}

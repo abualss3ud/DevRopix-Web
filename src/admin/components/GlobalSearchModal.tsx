@@ -6,7 +6,8 @@ import { AdminSection } from '../../types';
 interface GlobalSearchModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onNavigateSection: (section: AdminSection, highlightId?: string) => void;
+  onNavigateSection?: (section: AdminSection, highlightId?: string) => void;
+  onNavigate?: (section: any, highlightId?: string) => void;
   language: 'en' | 'ar';
 }
 
@@ -14,8 +15,10 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   isOpen,
   onClose,
   onNavigateSection,
+  onNavigate,
   language,
 }) => {
+  const navigateFn = onNavigate || onNavigateSection || (() => {});
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -40,45 +43,45 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   const projects = cleanQuery
     ? cmsStore.getProjects().filter(
         (p) =>
-          p.name_en.toLowerCase().includes(cleanQuery) ||
-          p.name_ar.toLowerCase().includes(cleanQuery) ||
-          p.summary_en.toLowerCase().includes(cleanQuery)
+          (p.name_en || '').toLowerCase().includes(cleanQuery) ||
+          (p.name_ar || '').toLowerCase().includes(cleanQuery) ||
+          (p.summary_en || '').toLowerCase().includes(cleanQuery)
       )
     : [];
 
   const services = cleanQuery
     ? cmsStore.getServices().filter(
         (s) =>
-          s.title_en.toLowerCase().includes(cleanQuery) ||
-          s.title_ar.toLowerCase().includes(cleanQuery) ||
-          s.shortDesc_en.toLowerCase().includes(cleanQuery)
+          (s.title_en || '').toLowerCase().includes(cleanQuery) ||
+          (s.title_ar || '').toLowerCase().includes(cleanQuery) ||
+          (s.shortDesc_en || '').toLowerCase().includes(cleanQuery)
       )
     : [];
 
   const blogPosts = cleanQuery
     ? cmsStore.getBlogPosts().filter(
         (b) =>
-          b.title_en.toLowerCase().includes(cleanQuery) ||
-          b.title_ar.toLowerCase().includes(cleanQuery) ||
-          b.excerpt_en.toLowerCase().includes(cleanQuery)
+          (b.title_en || '').toLowerCase().includes(cleanQuery) ||
+          (b.title_ar || '').toLowerCase().includes(cleanQuery) ||
+          (b.excerpt_en || '').toLowerCase().includes(cleanQuery)
       )
     : [];
 
   const messages = cleanQuery
     ? cmsStore.getMessages().filter(
         (m) =>
-          m.name.toLowerCase().includes(cleanQuery) ||
-          m.email.toLowerCase().includes(cleanQuery) ||
-          m.message.toLowerCase().includes(cleanQuery)
+          (m.name || '').toLowerCase().includes(cleanQuery) ||
+          (m.email || '').toLowerCase().includes(cleanQuery) ||
+          (m.message || '').toLowerCase().includes(cleanQuery)
       )
     : [];
 
   const testimonials = cleanQuery
     ? cmsStore.getTestimonials().filter(
         (t) =>
-          t.author.toLowerCase().includes(cleanQuery) ||
-          t.company.toLowerCase().includes(cleanQuery) ||
-          t.quote_en.toLowerCase().includes(cleanQuery)
+          (t.author || '').toLowerCase().includes(cleanQuery) ||
+          (t.company || '').toLowerCase().includes(cleanQuery) ||
+          (t.quote_en || '').toLowerCase().includes(cleanQuery)
       )
     : [];
 
@@ -163,7 +166,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <button
                       key={p.id}
                       onClick={() => {
-                        onNavigateSection('projects', p.id);
+                        navigateFn('projects', p.id);
                         onClose();
                       }}
                       className="w-full p-2.5 rounded-xl hover:bg-[#f4f4f5] flex items-center justify-between text-start transition-colors cursor-pointer group"
@@ -193,7 +196,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <button
                       key={s.id}
                       onClick={() => {
-                        onNavigateSection('services', s.id);
+                        navigateFn('services', s.id);
                         onClose();
                       }}
                       className="w-full p-2.5 rounded-xl hover:bg-[#f4f4f5] flex items-center justify-between text-start transition-colors cursor-pointer group"
@@ -223,7 +226,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <button
                       key={b.id}
                       onClick={() => {
-                        onNavigateSection('blog', b.id);
+                        navigateFn('blog', b.id);
                         onClose();
                       }}
                       className="w-full p-2.5 rounded-xl hover:bg-[#f4f4f5] flex items-center justify-between text-start transition-colors cursor-pointer group"
@@ -253,7 +256,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <button
                       key={m.id}
                       onClick={() => {
-                        onNavigateSection('messages', m.id);
+                        navigateFn('messages', m.id);
                         onClose();
                       }}
                       className="w-full p-2.5 rounded-xl hover:bg-[#f4f4f5] flex items-center justify-between text-start transition-colors cursor-pointer group"
@@ -281,7 +284,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <button
                       key={t.id}
                       onClick={() => {
-                        onNavigateSection('testimonials', t.id);
+                        navigateFn('testimonials', t.id);
                         onClose();
                       }}
                       className="w-full p-2.5 rounded-xl hover:bg-[#f4f4f5] flex items-center justify-between text-start transition-colors cursor-pointer group"
@@ -311,7 +314,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <button
                       key={c.id}
                       onClick={() => {
-                        onNavigateSection('clients', c.id);
+                        navigateFn('clients', c.id);
                         onClose();
                       }}
                       className="w-full p-2.5 rounded-xl hover:bg-[#f4f4f5] flex items-center justify-between text-start transition-colors cursor-pointer group"

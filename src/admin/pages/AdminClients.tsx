@@ -43,9 +43,9 @@ export const AdminClients: React.FC<AdminClientsProps> = ({ language, highlightI
   const filteredClients = clients
     .filter((c) => {
       if (!searchQuery.trim()) return true;
-      return c.name.toLowerCase().includes(searchQuery.toLowerCase());
+      return (c.name || '').toLowerCase().includes(searchQuery.toLowerCase());
     })
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   const handleOpenCreate = () => {
     setEditingClient(null);

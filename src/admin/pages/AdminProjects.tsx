@@ -42,8 +42,37 @@ export const AdminProjects: React.FC<AdminProjectsProps> = ({ language, highligh
   const [deleteTarget, setDeleteTarget] = useState<ProjectItem | null>(null);
   const [activeTab, setActiveTab] = useState<'details' | 'gallery' | 'metrics' | 'seo'>('details');
 
+  interface ProjectFormData {
+    name_en: string;
+    name_ar: string;
+    slug: string;
+    category: string;
+    summary_en: string;
+    summary_ar: string;
+    description_en: string;
+    description_ar: string;
+    image: string;
+    gallery: string[];
+    tags: string[];
+    techStack?: string[];
+    client: string;
+    duration: string;
+    features_en: string[];
+    features_ar: string[];
+    results_en: string;
+    results_ar: string;
+    liveUrl: string;
+    status: 'published' | 'draft';
+    featured: boolean;
+    order: number;
+    seoTitle: string;
+    seoDescription: string;
+    keywords: string;
+    canonicalUrl: string;
+  }
+
   // Form State
-  const [formData, setFormData] = useState<Omit<ProjectItem, 'id' | 'createdAt' | 'updatedAt'>>({
+  const [formData, setFormData] = useState<ProjectFormData>({
     name_en: '',
     name_ar: '',
     slug: '',
@@ -105,7 +134,7 @@ export const AdminProjects: React.FC<AdminProjectsProps> = ({ language, highligh
         p.category?.toLowerCase().includes(q)
       );
     })
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   const handleOpenCreate = () => {
     setEditingProject(null);
@@ -148,30 +177,31 @@ export const AdminProjects: React.FC<AdminProjectsProps> = ({ language, highligh
     setEditingProject(project);
     setActiveTab('details');
     setFormData({
-      name_en: project.name_en,
-      name_ar: project.name_ar,
-      slug: project.slug,
-      category: project.category,
-      summary_en: project.summary_en,
-      summary_ar: project.summary_ar,
-      description_en: project.description_en,
-      description_ar: project.description_ar,
-      image: project.image,
+      name_en: project.name_en || '',
+      name_ar: project.name_ar || '',
+      slug: project.slug || '',
+      category: project.category || 'Web Application',
+      summary_en: project.summary_en || '',
+      summary_ar: project.summary_ar || '',
+      description_en: project.description_en || '',
+      description_ar: project.description_ar || '',
+      image: project.image || '',
       gallery: [...(project.gallery || [])],
       tags: [...(project.tags || [])],
+      techStack: [...(project.techStack || [])],
       client: project.client || '',
       duration: project.duration || '',
       features_en: [...(project.features_en || [])],
       features_ar: [...(project.features_ar || [])],
-      results_en: project.results_en || '',
-      results_ar: project.results_ar || '',
+      results_en: Array.isArray(project.results_en) ? project.results_en.join(', ') : (project.results_en || ''),
+      results_ar: Array.isArray(project.results_ar) ? project.results_ar.join(', ') : (project.results_ar || ''),
       liveUrl: project.liveUrl || '',
-      status: project.status,
-      featured: project.featured,
-      order: project.order,
+      status: project.status || 'published',
+      featured: !!project.featured,
+      order: project.order || 1,
       seoTitle: project.seoTitle || '',
       seoDescription: project.seoDescription || '',
-      keywords: project.keywords || '',
+      keywords: Array.isArray(project.keywords) ? project.keywords.join(', ') : (project.keywords || ''),
       canonicalUrl: project.canonicalUrl || '',
     });
     setIsModalOpen(true);
@@ -192,10 +222,10 @@ export const AdminProjects: React.FC<AdminProjectsProps> = ({ language, highligh
     const finalData = { ...formData, slug: cleanSlug };
 
     if (editingProject) {
-      cmsStore.updateProject(editingProject.id, finalData);
+      cmsStore.updateProject(editingProject.id, finalData as unknown as Partial<ProjectItem>);
       showToast(isAr ? 'تم حفظ تعديلات المشروع' : 'Project updated successfully', 'success');
     } else {
-      cmsStore.createProject(finalData);
+      cmsStore.createProject(finalData as unknown as Omit<ProjectItem, 'id' | 'createdAt' | 'updatedAt'>);
       showToast(isAr ? 'تم إضافة المشروع بنجاح' : 'New project created successfully', 'success');
     }
 

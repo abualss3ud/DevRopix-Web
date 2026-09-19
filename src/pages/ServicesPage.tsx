@@ -128,7 +128,12 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         <section className="py-20 bg-[#fafafa]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             {servicesData.map((service, index) => {
-              const serviceText = t.services[service.titleKey as keyof typeof t.services] as {
+              const serviceText = (t.services[service.titleKey as keyof typeof t.services] || {
+                title: service.id,
+                desc: '',
+                fullDesc: '',
+                metric: service.metrics || '',
+              }) as {
                 title: string;
                 desc: string;
                 fullDesc: string;
@@ -146,10 +151,12 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     <div className="lg:col-span-7 space-y-6">
                       <div className="flex items-center gap-4">
                         <div className="w-14 h-14 rounded-xl bg-[#f4f4f5] border border-[#e4e4e7] flex items-center justify-center flex-shrink-0">
-                          {renderServiceIcon(service.iconName)}
+                          {renderServiceIcon(service.iconName || 'Globe')}
                         </div>
                         <div>
-                          <span className="text-xs font-mono text-[#6a5ed9] font-medium">Service 0{index + 1}</span>
+                          <span className="text-xs font-mono text-[#6a5ed9] font-medium">
+                            {language === 'ar' ? `الخدمة 0${index + 1}` : `Service 0${index + 1}`}
+                          </span>
                           <h2 className="font-display-h3 text-[#27272a]">
                             {serviceText.title}
                           </h2>
@@ -167,7 +174,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                           {t.services.deliverablesTitle}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          {service.deliverables.map((item, idx) => (
+                          {((language === 'ar' ? (service.deliverables_ar || service.deliverables) : (service.deliverables_en || service.deliverables)) || []).map((item, idx) => (
                             <div
                               key={idx}
                               className="flex items-start gap-2 p-3 rounded-lg bg-[#fafafa] border border-[#e4e4e7] text-xs text-[#71717a]"
@@ -184,10 +191,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     <div className="lg:col-span-5 rounded-xl border border-[#e4e4e7] bg-[#f4f4f5] p-6 space-y-6">
                       <div>
                         <span className="text-[11px] font-mono text-[#71717a] uppercase">
-                          Standard Benchmark
+                          {language === 'ar' ? 'معيار الجودة والأداء القياسي' : 'Standard Benchmark'}
                         </span>
                         <div className="text-base font-bold text-[#1bb152] mt-1 font-mono">
-                          {serviceText.metric}
+                          {language === 'ar' ? (service.metrics_ar || serviceText.metric) : (service.metrics_en || serviceText.metric)}
                         </div>
                       </div>
 
@@ -196,7 +203,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                           {t.services.technologiesTitle}
                         </span>
                         <div className="flex flex-wrap gap-1.5">
-                          {service.techStack.map((tech) => (
+                          {(service.techStack || []).map((tech) => (
                             <span
                               key={tech}
                               className="px-2.5 py-1 rounded bg-white border border-[#e4e4e7] text-xs font-mono text-[#27272a] shadow-2xs"

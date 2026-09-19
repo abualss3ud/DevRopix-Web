@@ -31,6 +31,7 @@ import { DeleteConfirmModal } from '../components/DeleteConfirmModal';
 
 interface AdminServicesProps {
   language: 'en' | 'ar';
+  highlightId?: string;
 }
 
 const AVAILABLE_ICONS = [
@@ -46,7 +47,7 @@ const AVAILABLE_ICONS = [
   { name: 'Sparkles', label: 'AI & Automation', component: Sparkles },
 ];
 
-export const AdminServices: React.FC<AdminServicesProps> = ({ language }) => {
+export const AdminServices: React.FC<AdminServicesProps> = ({ language, highlightId }) => {
   const isAr = language === 'ar';
   const { showToast } = useToast();
   const [, setTick] = useState(0);
@@ -87,18 +88,27 @@ export const AdminServices: React.FC<AdminServicesProps> = ({ language }) => {
 
   const services = cmsStore.getServices();
 
+  useEffect(() => {
+    if (highlightId) {
+      const found = services.find((s) => s.id === highlightId);
+      if (found) {
+        handleOpenEdit(found);
+      }
+    }
+  }, [highlightId]);
+
   const filteredServices = services
     .filter((s) => {
       if (statusFilter !== 'all' && s.status !== statusFilter) return false;
       if (!searchQuery.trim()) return true;
       const q = searchQuery.toLowerCase();
       return (
-        s.title_en.toLowerCase().includes(q) ||
-        s.title_ar.toLowerCase().includes(q) ||
-        s.shortDesc_en.toLowerCase().includes(q)
+        (s.title_en || '').toLowerCase().includes(q) ||
+        (s.title_ar || '').toLowerCase().includes(q) ||
+        (s.shortDesc_en || '').toLowerCase().includes(q)
       );
     })
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   const handleOpenCreate = () => {
     setEditingService(null);
@@ -332,7 +342,7 @@ export const AdminServices: React.FC<AdminServicesProps> = ({ language }) => {
                       </td>
                       <td className="py-3.5 px-4">
                         <div className="flex flex-wrap gap-1 max-w-xs">
-                          {service.techStack.slice(0, 3).map((tech, idx) => (
+                          {(service.techStack || []).slice(0, 3).map((tech, idx) => (
                             <span
                               key={idx}
                               className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-[#f4f4f5] text-[#52525b] border border-[#e4e4e7]"
@@ -340,9 +350,9 @@ export const AdminServices: React.FC<AdminServicesProps> = ({ language }) => {
                               {tech}
                             </span>
                           ))}
-                          {service.techStack.length > 3 && (
+                          {(service.techStack?.length || 0) > 3 && (
                             <span className="text-[10px] text-[#71717a] self-center">
-                              +{service.techStack.length - 3}
+                              +{(service.techStack?.length || 0) - 3}
                             </span>
                           )}
                         </div>
