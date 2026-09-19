@@ -15,7 +15,7 @@ export const HeroVisual: React.FC<HeroVisualProps> = ({ language }) => {
 
       {/* Pure Vector Illustration with balanced, elegant size */}
       <img
-        src="/data-extraction-amico.svg"
+        src="./data-extraction-amico.svg"
         alt={isAr ? 'رسم توضيحي لأنظمة واستخراج البيانات ديف روبيكس' : 'Data extraction and engineering illustration'}
         referrerPolicy="no-referrer"
         className="relative z-10 w-full h-auto max-h-[320px] sm:max-h-[350px] object-contain drop-shadow-xs transition-transform duration-300 hover:scale-[1.02]"
