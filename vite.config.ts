@@ -4,13 +4,8 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
-  // If repository name is provided or we are on GitHub Actions, use repo path, otherwise fallback to relative './'
-  const repoName = process.env.GITHUB_REPOSITORY
-    ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
-    : './';
-
   return {
-    base: repoName,
+    base: './',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
