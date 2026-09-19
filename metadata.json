@@ -1,0 +1,6 @@
+{
+  "name": "DevRopix",
+  "description": "Modern software engineering & digital product company specializing in web applications, mobile apps, UI/UX design, and custom technology solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 100" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- DevRopix D Gradient -->
+    <linearGradient id="devropix-d-grad" x1="0%" y1="30%" x2="85%" y2="70%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="25%" stop-color="#4F46E5" />
+      <stop offset="55%" stop-color="#6366F1" />
+      <stop offset="85%" stop-color="#1E1B4B" />
+      <stop offset="100%" stop-color="#0B1220" />
+    </linearGradient>
+
+    <!-- DevRopix X Gradient -->
+    <linearGradient id="devropix-x-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="30%" stop-color="#4F46E5" />
+      <stop offset="65%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+  </defs>
+
+  <!-- Stylized D with wing, slit, inner counter and outer bowl -->
+  <path
+    d="M 4 18 L 74 18 C 102 18 120 34 120 55 C 120 76 102 92 74 92 L 24 92 L 24 82 L 44 62 L 44 72 L 72 72 C 86 72 96 65 96 55 C 96 45 86 38 72 38 L 44 38 L 44 50 L 24 70 L 24 38 L 4 18 Z"
+    fill="url(#devropix-d-grad)"
+  />
+
+  <!-- Middle letters: evropi -->
+  <text
+    x="130"
+    y="91"
+    font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+    font-size="74"
+    font-weight="800"
+    letter-spacing="-0.025em"
+    fill="#0B1220"
+  >evropi</text>
+
+  <!-- Stylized X -->
+  <polygon
+    points="444,40 461,40 500,92 483,92"
+    fill="#0B1220"
+  />
+  <polygon
+    points="444,92 461,92 500,40 483,40"
+    fill="url(#devropix-x-grad)"
+  />
+</svg>
